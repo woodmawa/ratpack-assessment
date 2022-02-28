@@ -1,0 +1,21 @@
+<!-- had to add as intellij - ignored logback.groovy -->
+
+<configuration>
+    <!-- remove default startup logback messages -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}] %-5level [%thread]  %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.netty" level="WARN"/>
+    <logger name="com.softwood.actor" level="DEBUG"/>
+
+
+
+    <root level="OFF">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

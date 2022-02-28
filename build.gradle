@@ -1,0 +1,49 @@
+
+plugins {
+    id 'groovy'
+    id 'java'
+    id "io.ratpack.ratpack-groovy" version "1.10.0-milestone-3"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+String groovyVersion = "4.0.0"
+
+repositories {
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+    maven {
+        url "https://mvnrepository.com/artifact/org.apache.groovy/groovy"}
+
+    mavenCentral()
+}
+
+//ratpack is a runtime dependency - its handled here by the plugin
+dependencies {
+    implementation group: "org.apache.groovy", name: 'groovy', version: "${groovyVersion}"
+
+    //implementation group: 'org.apache.groovy', name: 'groovy-json', version: "${groovyVersion}"
+
+    runtimeOnly group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha6'
+    runtimeOnly group: 'ch.qos.logback', name: 'logback-classic', version: '1.3.0-alpha14'
+
+
+    //testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+//    testImplementation group: 'org.apache.groovy', name: 'groovy-test', version: "${groovyVersion}"
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.2-M1-groovy-4.0'
+//    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.2-M1-groovy-2.5'
+
+
+    testRuntimeOnly group: 'io.ratpack', name: 'ratpack-groovy-test', version: '1.10.0-milestone-4'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
