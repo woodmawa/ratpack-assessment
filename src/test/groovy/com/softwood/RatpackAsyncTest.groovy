@@ -121,4 +121,17 @@ class RatpackAsyncTest extends Specification {
         then:
         result.value == 'blocking -> compute'
     }
+
+    def "ratpack chain a promise " () {
+        given :
+        Promise promise = Promise.sync {
+            return "hello"
+        }.map {it.toUpperCase()} .then {println it}
+
+        //def result = yield {promise}
+
+        //expect:
+        //result == 'hello'
+
+    }
 }
