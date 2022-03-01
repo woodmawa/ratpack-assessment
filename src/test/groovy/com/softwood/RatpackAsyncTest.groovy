@@ -139,4 +139,29 @@ class RatpackAsyncTest extends Specification {
         execResult.value == 'HELLO'
 
     }
+
+    def "ratpack throws exception" () {
+
+        def errStr
+
+        when:
+        Promise p = Promise.sync {
+            throw new Exception("oh no")
+        }.onError { Exception e ->
+            errStr = e.message
+            println "oneError $e.message"  //returns null
+        }.map {
+            'map'
+        }
+
+        and:
+        def value = yield { p }.valueOrThrow
+
+        then:
+        notThrown Exception
+        value != 'map'
+        value == null
+        errStr == "oh no"
+
+    }
 }
