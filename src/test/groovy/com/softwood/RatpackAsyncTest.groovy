@@ -126,12 +126,17 @@ class RatpackAsyncTest extends Specification {
         given :
         Promise promise = Promise.sync {
             return "hello"
-        }.map {it.toUpperCase()} .then {println it}
+        }.map {it.toUpperCase()}
 
-        //def result = yield {promise}
+        ExecResult execResult = yield {promise
+            def result = promise.wiretap {it.value}
+            promise.then {println " and then ... $it"} //void return
+            result
+        }
+        //promise.then {println " and then ... $it"}
 
-        //expect:
-        //result == 'hello'
+        expect:
+        execResult.value == 'HELLO'
 
     }
 }
